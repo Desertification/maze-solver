@@ -12,7 +12,7 @@ import java.util.stream.Stream;
  */
 public class Maze {
 	private boolean[][] boolMaze; // floor is true
-	private Coordinate[][] nodeMaze; // floor is true
+	private Coordinate[][] nodeMaze;
 	private Graph<Coordinate> coordinateGraph;
 	private ArrayList<Coordinate> entries;
 
@@ -51,7 +51,7 @@ public class Maze {
 		for (int row = 0; row < numOfLines; row++) {
 			for (int col = 0; col < numOfLines; col++) {
 
-				try { // if a node to the left
+				try { // if a node to the right
 					if (boolMaze[row][col] && boolMaze[row][col + 1]) {
 						coordinateGraph.addEdge(nodeMaze[row][col], nodeMaze[row][col + 1]);
 					}
