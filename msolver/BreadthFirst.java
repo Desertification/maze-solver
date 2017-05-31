@@ -1,9 +1,6 @@
 package msolver;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -31,6 +28,24 @@ public class BreadthFirst<T> {
 		bfs(graph, source);
 	}
 
+	/**
+	 * breadth first search
+	 *
+	 * WORKING:
+	 * generates a tree from source to all the farthest points
+	 * Begins at the source and looks at all its adjacent nodes
+	 * If the node is not already marked (visited) add them to the queue to again visit its adjacent nodes (could be implemented recursively)
+	 * Mark the node
+	 * Store the distance between the source and this node
+	 * Repeat until queue is empty
+	 *
+	 * REASON OF CHOICE
+	 * Breadth first search finds the shortest from source to all the other nodes
+	 * It has no problem with mazes with multiple routes, exit points or loops
+	 *
+	 * @param G node type
+	 * @param source source node to search from
+	 */
 	private void bfs(Graph G, T source) {
 		Queue<T> q = new LinkedBlockingQueue<>();
 
@@ -56,11 +71,14 @@ public class BreadthFirst<T> {
 	}
 
 	public Iterable<T> pathTo(T node) {
-		if (!hasPathTo(node)) return null;
-		Stack<T> path = new Stack<>();
+		LinkedList<T> path = new LinkedList<>();
+		if (!hasPathTo(node)) {
+			return path;
+		}
 		T x;
-		for (x = node; distTo.get(x) != 0; x = edgeTo.get(x))
+		for (x = node; distTo.get(x) != 0; x = edgeTo.get(x)){
 			path.push(x);
+		}
 		path.push(x);
 		return path;
 	}

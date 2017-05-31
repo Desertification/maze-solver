@@ -11,14 +11,15 @@ import java.util.stream.Stream;
  * Created by thoma on 31-May-17.
  */
 public class Maze {
-	private boolean[][] boolMaze; // floor is true
-	private Coordinate[][] nodeMaze;
+	private boolean[][] boolMaze; //maze in boolean format, floor is true
+	private Coordinate[][] nodeMaze; // reference to node at 2d location
 	private Graph<Coordinate> coordinateGraph;
-	private ArrayList<Coordinate> entries;
+	private ArrayList<Coordinate> entries; // entry points in the maze
 
 	public Maze(String path) throws IOException {
 		Stream<String> lines = Files.lines(Paths.get(path), Charset.defaultCharset());
 		int numOfLines = (int) lines.count();
+
 		boolMaze = new boolean[numOfLines][numOfLines];
 		nodeMaze = new Coordinate[numOfLines][numOfLines];
 
@@ -39,7 +40,7 @@ public class Maze {
 					coordinateGraph.addNode(node);
 					nodeMaze[line][col] = node;
 
-					if (line == 0 || line == numOfLines - 1 || col == 0 || col == numOfLines -1){
+					if (line == 0 || line == numOfLines - 1 || col == 0 || col == numOfLines -1){ // if node at the edge of the maze
 						entries.add(node);
 					}
 
